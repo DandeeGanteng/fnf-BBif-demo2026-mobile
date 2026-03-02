@@ -6,10 +6,6 @@ import flixel.system.FlxAssets;
 import haxe.Json;
 import haxe.io.Path;
 
-#if android
-import android.content.Context;
-#end
-
 import lime.app.Application;
 #if linux
 import lime.graphics.Image;
@@ -71,13 +67,6 @@ class Main extends Sprite
 		
 		#if (windows && cpp && !debug)
 		funkin.backend.system.Windows.setDpiAware();
-		#end
-		
-		// Credits to MAJigsaw77 (he's the og author for this code)
-		#if android
-		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
-		#elseif ios
-		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
 		
 		ClientPrefs.tryBindingSave('funkin');
