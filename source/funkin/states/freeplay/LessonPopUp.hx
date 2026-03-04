@@ -38,11 +38,6 @@ class LessonPopUp extends MusicBeatSubstate
 			spr.updateHitbox();
 		}
 		
-		#if mobile
-		if (!controls.isInSubstate)
-            controls.isInSubstate = true;
-        #end
-		
 		bg = new FlxBGSprite();
 		bg.color = FlxColor.BLACK;
 		bg.alpha = 0.6;
@@ -99,6 +94,8 @@ class LessonPopUp extends MusicBeatSubstate
 	{
 		FlxG.sound.play(Paths.sound('freeplay/ruler back'));
 		
+		removeVirtualPad();
+		
 		FlxTween.tween(glow, {alpha: 0}, 0.2, {framerate: 24});
 		FlxTween.tween(goodMix, {alpha: 0}, 0.3, {framerate: 24});
 		FlxTween.tween(badMix, {alpha: 0}, 0.3, {framerate: 24});
@@ -152,7 +149,7 @@ class LessonPopUp extends MusicBeatSubstate
 				
 				playSound(curSel == 0);
 			}
-			else if (curSel != -1 && (controls.ACCEPT || (FlxG.mouse.justPressed && (mouseOver(goodMix) || mouseOver(badMix)))))
+			else if (curSel != -1 && (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end || (FlxG.mouse.justPressed && (mouseOver(goodMix) || mouseOver(badMix)))))
 			{
 				canInteract = false;
 				@:privateAccess
@@ -176,7 +173,7 @@ class LessonPopUp extends MusicBeatSubstate
 						});
 				}
 			}
-			else if (controls.BACK || FlxG.mouse.justPressedRight)
+			else if (controls.BACK #if mobile || virtualPad.buttonA.justPressed #end || FlxG.mouse.justPressedRight)
 			{
 				canInteract = false;
 				transitionOut();
