@@ -142,7 +142,9 @@ class DiscordClient
 		// trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
 	}
 	
-	public static function updatePresence() #if !android Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence)); #end
+	public static function updatePresence() {
+        #if !android Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence)); #end
+    }
 	
 	public static function resetClientID() clientID = _defaultID;
 	
