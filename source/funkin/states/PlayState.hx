@@ -1022,6 +1022,13 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		#if mobile
 		hitbox.visible = true;
+		mobile.backend.PauseButton.showPauseButtonOnCamera(camPause, null, function() {
+			var ret:Dynamic = callOnScripts('onPause', null, true);
+			if (ret != Constants.SCRIPT_STOP)
+			{
+				openPauseMenu();
+			}
+		});
 		#end
 		var ret:Dynamic = callOnScripts('onStartCountdown', null, true);
 		if (ret != Constants.SCRIPT_STOP)
@@ -1799,6 +1806,10 @@ class PlayState extends MusicBeatState
 				openPauseMenu();
 			}
 		}
+		
+		#if mobile
+		mobile.backend.PauseButton.update();
+		#end
 		
 		if (!endingSong && !inCutscene && allowDebugKeys)
 		{
@@ -2667,6 +2678,7 @@ class PlayState extends MusicBeatState
 		
 		#if mobile
 		hitbox.visible = false;
+		mobile.backend.PauseButton.hidePauseButton();
 		#end
 		
 		#if ACHIEVEMENTS_ALLOWED
