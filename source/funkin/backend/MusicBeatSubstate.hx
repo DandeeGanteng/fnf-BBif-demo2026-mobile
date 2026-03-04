@@ -3,6 +3,7 @@ package funkin.backend;
 import flixel.FlxSubState;
 
 #if mobile
+import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;
 import flixel.group.FlxGroup;
 import mobile.controls.MobileVirtualPad;
